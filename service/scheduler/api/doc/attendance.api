@@ -1,0 +1,101 @@
+syntax = "v1"
+
+
+type (
+    AttendanceAddRequest {
+		CheckInTime  int64  `json:"check_in_time"`  // 签到时间
+		CheckInPhoto  string  `json:"check_in_photo"`  // 签到图片
+		UserId  string  `json:"user_id"`  // 用户ID
+    }
+
+    AttendanceDelRequest {
+		Id  string  `path:"id"`  // 考勤ID
+    }
+
+	AttendancePatchRequest{
+		SignOffTime  int64  `json:"sign_off_time"`  // 签退时间
+		SignOffPhoto  string  `json:"sign_off_photo"`  // 签退图片
+		UserId  string  `json:"user_id"`  // 用户ID
+	}
+    AttendanceUpRequest {
+		Id  string  `json:"id"`  // 考勤ID
+		Name  string  `json:"name,optional"`  // 考勤人
+		UserId  string  `json:"user_id,optional"`  // 用户ID
+		Date  string  `json:"date,optional"`  // 考勤日期
+		CheckInTime  int64  `json:"check_in_time,optional"`  // 签到时间
+		CheckInPhoto  string  `json:"check_in_photo,optional"`  // 签到图片
+		SignOffTime  int64  `json:"sign_off_time,optional"`  // 签退时间
+		SignOffPhoto  string  `json:"sign_off_photo,optional"`  // 签退图片
+		State  int64  `json:"state,optional"`  // 考勤状态 上班打卡:1,下班打卡:2,打卡正常:3,打卡异常:4      
+    }
+
+
+    AttendanceListRequest {
+		Current  int64  `form:"current,default=1,optional"`  // 页码
+		PageSize  int64  `form:"page_size,default=10,optional"`  // 页数
+		Name  string  `form:"name,optional"`  // 考勤人
+		UserId  string  `form:"user_id,optional"`  // 用户ID
+		Date  string  `form:"date,optional"`  // 考勤日期
+		CheckInTime  int64  `form:"check_in_time,default=99,optional"`  // 签到时间
+		SignOffTime  int64  `form:"sign_off_time,default=99,optional"`  // 签退时间
+		State  int64  `form:"state,default=99,optional"`  // 考勤状态 上班打卡:1,下班打卡:2,打卡正常:3,打卡异常:4
+    }
+
+    AttendanceInfoRequest {
+		Id  string  `form:"id"`  // 考勤ID          
+    }
+
+	DayAttendanceInfoRequest {
+		Date  string  `form:"date"`  // 考勤日期
+		UserId  string  `form:"user_id"`  // 用户ID
+	}
+	DayAttendanceByTimeInfoRequest {
+		StartTime   int64 `form:"start_time"` // 开始时间
+		EndTime   int64 `form:"end_time"` // 结束时间
+		UserId  string  `form:"user_id"`  // 用户ID
+	}
+
+)
+
+@server(
+	//声明当前service下所有路由需要jwt鉴权，且会自动生成包含jwt逻辑的代码
+//	jwt: Auth
+//	middleware: CheckAuth // 路由中间件声明鉴权
+    group: attendance
+)
+
+service Scheduler {
+
+    // 签到
+    @handler AttendanceAdd
+    post /scheduler/Attendance (AttendanceAddRequest) returns (Response)
+
+	// 签退
+	@handler AttendancePatch
+	patch /scheduler/AttendancePatch (AttendancePatchRequest) returns (Response)
+
+    // 删除
+    @handler AttendanceDel
+    delete /scheduler/Attendance/:id (AttendanceDelRequest) returns (Response)
+
+    // 更新
+    @handler AttendanceUp
+    put /scheduler/Attendance (AttendanceUpRequest) returns (Response)
+
+    // 分页查询
+    @handler AttendanceList
+    get /scheduler/Attendance (AttendanceListRequest) returns (Response)
+
+    // 查询详细信息
+    @handler AttendanceInfo
+    get /scheduler/AttendanceInfo (AttendanceInfoRequest) returns (Response)
+
+	// 查询某天的考勤情况
+	@handler DayAttendanceInfo
+	get /scheduler/DayAttendanceInfo (DayAttendanceInfoRequest) returns (Response)
+
+	// 查询某个时间段内的考勤
+	@handler DayAttendanceByTimeInfo
+	get /scheduler/DayAttendanceByTimeInfo (DayAttendanceByTimeInfoRequest) returns (Response)
+
+}

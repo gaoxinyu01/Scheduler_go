@@ -1,0 +1,78 @@
+syntax = "v1"
+
+info(
+    title: "type title here"
+    desc: "type desc here"
+    author: "type author here"
+    email: "type email here"
+    version: "type version here"
+)
+
+
+type (
+    SchedulingAddRequest {
+        data []SchedulingAddList `json:"data"`
+    }
+
+    SchedulingAddList {
+        Time int64 `json:"time"`
+        Name string `json:"name"`
+        StartTime int64 `json:"start_time"`
+        EndTime int64 `json:"end_time"`
+        Colour string `json:"colour"`
+        TeamId string `json:"team_id"`
+        UserIds []string `json:"user_ids"`
+    }
+
+    SchedulingDelRequest {
+        Id string `path:"id"`
+    }
+
+    SchedulingUpRequest {
+        Id string `json:"id"`
+        Time int64 `json:"time"`
+        Name string `json:"name"`
+        StartTime int64 `json:"start_time"`
+        EndTime int64 `json:"end_time"`
+        Colour string `json:"colour"`
+        TeamId string `json:"team_id"`
+        UserId string `json:"user_id"`
+    }
+
+
+    SchedulingListRequest {
+        Current int64 `form:"current,default=1,optional"`
+        PageSize int64 `form:"page_size,default=10,optional"`
+        Time int64 `form:"time,optional"`
+        Name string `form:"name,optional"`
+        StartTime int64 `form:"start_time,optional"`
+        EndTime int64 `form:"end_time,optional"`
+        TeamName string `form:"team_name,optional"`
+        UserName string `form:"user_name,optional"`
+    }
+)
+
+@server(
+    //声明当前service下所有路由需要jwt鉴权，且会自动生成包含jwt逻辑的代码
+//    jwt: Auth
+//    middleware: CheckAuth // 路由中间件声明鉴权
+    group: scheduling
+)
+
+service Scheduler {
+    // 添加排班列表
+    @handler SchedulingAdd
+    post /scheduler/scheduling (SchedulingAddRequest) returns (Response)
+
+    // 删除排班列表
+    @handler SchedulingDel
+    delete /scheduler/scheduling/:id (SchedulingDelRequest) returns (Response)
+
+    // 更新排班列表
+    @handler SchedulingUp
+    put /scheduler/scheduling (SchedulingUpRequest) returns (Response)
+
+    // 查询排班列表
+    @handler SchedulingList
+    get /scheduler/scheduling (SchedulingListRequest) returns (Response)
+}

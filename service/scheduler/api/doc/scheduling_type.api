@@ -1,0 +1,69 @@
+syntax = "v1"
+
+info(
+    title: "type title here"
+    desc: "type desc here"
+    author: "type author here"
+    email: "type email here"
+    version: "type version here"
+)
+
+
+type (
+    SchedulingTypeAddRequest {
+        Name      string `json:"name"`
+        StartTime string `json:"start_time"`
+        EndTime   string `json:"end_time"`
+        Colour    string `json:"colour,optional"`
+        Remark    string `json:"remark"`
+    }
+
+    SchedulingTypeDelRequest {
+        Id string `path:"id"`
+    }
+
+    SchedulingTypeUpRequest {
+        Id        string `json:"id"`
+        Name      string `json:"name,optional"`
+        StartTime string `json:"start_time,optional"`
+        EndTime   string `json:"end_time,optional"`
+        Colour    string `json:"colour,optional"`
+        Remark    string `json:"remark,optional"`
+    }
+
+
+
+    SchedulingTypeListRequest {
+        Current   int64  `form:"current,default=1,optional"`
+        PageSize  int64  `form:"page_size,default=10,optional"`
+    }
+
+
+)
+
+@server(
+    //声明当前service下所有路由需要jwt鉴权，且会自动生成包含jwt逻辑的代码
+//    jwt: Auth
+//    middleware: CheckAuth // 路由中间件声明鉴权
+    group: schedulingType
+)
+
+service Scheduler {
+
+    // 添加排班类型
+    @handler SchedulingTypeAdd
+    post /scheduler/schedulingType (SchedulingTypeAddRequest) returns (Response)
+
+    // 删除排班类型
+    @handler SchedulingTypeDel
+    delete /scheduler/schedulingType/:id (SchedulingTypeDelRequest) returns (Response)
+
+    // 更新排班类型
+    @handler SchedulingTypeUp
+    put /scheduler/schedulingType (SchedulingTypeUpRequest) returns (Response)
+
+    // 查询排班类型
+    @handler SchedulingTypeList
+    get /scheduler/schedulingType (SchedulingTypeListRequest) returns (Response)
+
+}

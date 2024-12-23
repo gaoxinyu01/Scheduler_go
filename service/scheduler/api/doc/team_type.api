@@ -1,0 +1,62 @@
+syntax = "v1"
+
+info(
+    title: "type title here"
+    desc: "type desc here"
+    author: "type author here"
+    email: "type email here"
+    version: "type version here"
+)
+
+
+type (
+    // 添加部门
+    TeamTypeAddRequest {
+        Name        string `json:"name"`
+        Description string `json:"description"`
+    }
+        // 删除部门
+    TeamTypeDelRequest {
+        Id string `path:"id"`
+    }
+        // 更新部门信息
+    TeamTypeUpRequest {
+        Id          string `json:"id"`
+        Name        string `json:"name,optional"`
+        Description string `json:"description,optional"`
+    }
+
+        // 查询部门信息
+    TeamTypeListRequest {
+        Current     int64  `form:"current,default=1,optional"`
+        PageSize    int64  `form:"page_size,default=10,optional"`
+        Name        string `form:"name,optional"`
+        Description string `form:"description,optional"`
+    }
+
+)
+
+@server(
+    //声明当前service下所有路由需要jwt鉴权，且会自动生成包含jwt逻辑的代码
+//    jwt: Auth
+//    middleware: CheckAuth // 路由中间件声明鉴权
+    group: teamType
+)
+
+service Scheduler {
+    // 添加部门
+    @handler TeamTypeAdd
+    post /scheduler/teamType (TeamTypeAddRequest) returns (Response)
+
+    // 删除部门
+    @handler TeamTypeDel
+    delete /scheduler/teamType/:id (TeamTypeDelRequest) returns (Response)
+
+    // 更新部门信息
+    @handler TeamTypeUp
+    put /scheduler/teamType (TeamTypeUpRequest) returns (Response)
+
+    // 查询部门信息
+    @handler TeamTypeList
+    get /scheduler/teamType (TeamTypeListRequest) returns (Response)
+}

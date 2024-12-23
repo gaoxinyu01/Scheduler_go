@@ -1,0 +1,108 @@
+syntax = "v1"
+
+
+type (
+	ProcInstStartRequest {
+		ProcId  int64  `json:"proc_id"`  // 流程ID
+		BusinessId  string  `json:"business_id"`  // 业务ID
+		Comment string `json:"comment"` // 评论意见
+		VariablesJson  string  `json:"variables_json"`  // 变量(Json)
+		Data  string  `json:"data,optional"`  //预留
+	}
+
+	ProcInstRevokeRequest {
+		Id  int64  `json:"id"`  // 流程实例ID
+		RevokeUserID  string  `json:"revoke_user_id,optional"`  // 撤销发起用户ID
+		Force  int64  `json:"force,default=0,options=0|1|,optional"`  // 是否强制撤销
+	}
+
+	ProcInstDelRequest {
+		Id  int64  `path:"id"`  // 流程实例ID
+	}
+
+	ProcInstUpRequest {
+		Id  int64  `json:"id"`  // 流程实例ID
+		ProcId  int64  `json:"proc_id,optional"`  // 流程ID
+		ProcName  string  `json:"proc_name,optional"`  // 流程名称
+		ProcVersion  int64  `json:"proc_version,optional"`  // 流程版本号
+		BusinessId  string  `json:"business_id,optional"`  // 业务ID
+		Starter  string  `json:"starter,optional"`  // 流程发起人用户ID
+		CurrentNodeId  string  `json:"current_node_id,optional"`  // 当前进行节点ID
+		VariablesJson  string  `json:"variables_json,optional"`  // 变量(Json)
+		Status  int64  `json:"status,optional"`  // 状态 0 未完成（审批中） 1 已完成 2 撤销
+		Data  string  `json:"data,optional"`  //
+	}
+
+
+	ProcInstListRequest {
+		Current  int64  `form:"current,default=1,optional"`  // 页码
+		PageSize  int64  `form:"page_size,default=10,optional"`  // 页数
+		ProcId  int64  `form:"proc_id,default=99,optional"`  // 流程ID
+		ProcName  string  `form:"proc_name,optional"`  // 流程名称
+		ProcVersion  int64  `form:"proc_version,default=99,optional"`  // 流程版本号
+		BusinessId  string  `form:"business_id,optional"`  // 业务ID
+		Starter  string  `form:"starter,optional"`  // 流程发起人用户ID
+		CurrentNodeId  string  `form:"current_node_id,optional"`  // 当前进行节点ID
+		VariablesJson  string  `form:"variables_json,optional"`  // 变量(Json)
+		Status  int64  `form:"status,default=99,optional"`  // 状态 0 未完成（审批中） 1 已完成 2 撤销
+		Data  string  `form:"data,optional"`  //        
+	}
+
+	ProcInstTaskHistoryRequest{
+		Current  int64  `form:"current,default=1,optional"`  // 页码
+		PageSize  int64  `form:"page_size,default=10,optional"`  // 页数
+		InstId  int64  `form:"instid,default=99,optional"`  // 流程ID
+		Data  string  `form:"data,optional"`  //
+	}
+
+	ProcInstInfoRequest {
+		Id  int64  `form:"id"`  // 流程实例ID          
+	}
+
+)
+
+@server(
+    //声明当前service下所有路由需要jwt鉴权，且会自动生成包含jwt逻辑的代码
+    jwt: Auth
+    group: procInst
+)
+
+service Workflow {
+
+    // 开始流程
+    @handler ProcInstStart
+    post /workflow/procInst (ProcInstStartRequest) returns (Response)
+
+	// 分页查询
+	@handler ProcInstList
+	get /workflow/procInst (ProcInstListRequest) returns (Response)
+
+
+	// 撤销流程
+	@handler ProcInstRevoke
+	post /workflow/procInstRevoke (ProcInstRevokeRequest) returns (Response)
+
+	// 流程实例中任务执行记录
+	@handler ProcInstTaskHistory
+	get /workflow/procInstTaskHistory (ProcInstTaskHistoryRequest) returns (Response)
+
+
+
+    // 删除
+    @handler ProcInstDel
+    delete /workflow/procInst/:id (ProcInstDelRequest) returns (Response)
+
+
+	// 查询流程
+	@handler ProcInstInfo
+	get /workflow/procInstInfo (ProcInstInfoRequest) returns (Response)
+
+
+    // 更新
+    @handler ProcInstUp
+    put /workflow/procInst (ProcInstUpRequest) returns (Response)
+
+
+
+
+}

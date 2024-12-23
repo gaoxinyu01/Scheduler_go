@@ -1,0 +1,38 @@
+Name: scheduler-api
+Host: 0.0.0.0
+Port: 1001
+Mode: dev
+Timeout: 3000000
+
+
+Log:
+  ServiceName: scheduler-api
+  Level: info
+
+SchedulerRpc:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:30000
+    Key: scheduler.rpc
+  Timeout: 3000000
+
+ArchiveRpc:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:30000
+    Key: archive.rpc
+  Timeout: 3000000
+
+AuthenticationRpc:
+  Etcd:
+    Hosts:
+      - 127.0.0.1:30000
+    Key: authentication.rpc
+  Timeout: 3000000
+
+Auth:
+  AccessSecret: uOvKLmVfztaX9999999
+  AccessExpire: 86400
+
+
+

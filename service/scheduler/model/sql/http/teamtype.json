@@ -1,0 +1,226 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "teamType"
+    }
+  ],
+  "paths": {
+    "/scheduler/teamType/{id}": {
+      "delete": {
+        "summary": "删除teamType",
+        "x-apifox-folder": "teamType",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "teamType"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "部门类型ID",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+
+        },
+        "x-run-in-apifox": "",
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/scheduler/teamTypeInfo": {
+      "get": {
+        "summary": "根据ID查询teamType",
+        "x-apifox-folder": "teamType",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "teamType"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "部门类型ID",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+
+        },
+        "x-run-in-apifox": "",
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/scheduler/teamType": {
+      "post": {
+        "summary": "添加teamType",
+        "x-apifox-folder": "teamType",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "teamType"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+					"type": "string",
+					"description": "部门名称"
+				  },
+				  "description": {
+					"type": "string",
+					"description": "描述"
+				  }
+                }
+              }
+            }
+          }
+        },
+         "responses": {
+
+         },
+        "x-run-in-apifox": "",
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "get": {
+        "summary": "分页查询teamType",
+        "x-apifox-folder": "teamType",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "teamType"
+        ],
+        "parameters": [
+          {
+			"name": "current",
+			"in": "query",
+			"description": "页码",
+			"required": false,
+			"schema": {
+			  "type": "integer"
+			}
+		  },
+		  {
+			"name": "page_size",
+			"in": "query",
+			"description": "页数",
+			"required": false,
+			"schema": {
+			  "type": "integer"
+			}
+		  },
+		  {
+			"name": "name",
+			"in": "query",
+			"description": "部门名称",
+			"required": false,
+			"schema": {
+			  "type": "string"
+			}
+		  },
+		  {
+			"name": "description",
+			"in": "query",
+			"description": "描述",
+			"required": false,
+			"schema": {
+			  "type": "string"
+			}
+		  }
+        ],
+         "responses": {
+
+         },
+        "x-run-in-apifox": "",
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "put": {
+        "summary": "修改teamType",
+        "x-apifox-folder": "teamType",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "teamType"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                   "id": {
+					"type": "string",
+					"description": "部门类型ID"
+				  },
+				  "name": {
+					"type": "string",
+					"description": "部门名称"
+				  },
+				  "description": {
+					"type": "string",
+					"description": "描述"
+				  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+
+        },
+        "x-run-in-apifox": "",
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}

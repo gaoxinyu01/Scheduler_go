@@ -1,0 +1,187 @@
+syntax = "v1"
+
+
+type (
+	TaskPassRequest {
+		TaskId  int64  `json:"task_id"`  // 任务ID
+		Comment  string  `json:"comment"`  // 评论意见
+		VariablesJson  string  `json:"variables_json"`  // 变量(Json)
+		Data  string  `json:"data,optional"`  //
+		DirectlyToWhoRejectedMe  int64 `json:"directly_to_who_rejected_me,default=0,optional"`  	//任务通过(pass)时直接返回到上一个驳回我的节点 0不返回  1 返回
+    }
+
+	TaskPassDirectlyToWhoRejectedMeRequest{
+		TaskId  int64  `json:"task_id"`  // 任务ID
+		Comment  string  `json:"comment"`  // 评论意见
+		VariablesJson  string  `json:"variables_json"`  // 变量(Json)
+		Data  string  `json:"data,optional"`  //
+	}
+
+	TaskRejectRequest{
+		TaskId  int64  `json:"task_id"`  // 任务ID
+		Comment  string  `json:"comment"`  // 评论意见
+		VariablesJson  string  `json:"variables_json"`  // 变量(Json)
+		Data  string  `json:"data,optional"`  //
+	}
+
+	TaskFreeRejectToUpstreamNodeRequest{
+		TaskId  int64  `json:"task_id"`  // 任务ID
+		Comment  string  `json:"comment"`  // 评论意见
+		VariablesJson  string  `json:"variables_json"`  // 变量(Json)
+		RejectToNodeID string `json:"reject_to_node_id"` //驳回到哪个节点
+		Data  string  `json:"data,optional"`  //
+	}
+
+	TaskTransferRequest{
+		TaskId  int64  `json:"task_id"`  // 任务ID
+		Users []string `json:"users"` //用户
+		Data  string  `json:"data,optional"`  //
+	}
+
+	TaskToDoListRequest{
+		Current  int64  `form:"current,default=1,optional"`  // 页码
+		PageSize  int64  `form:"page_size,default=10,optional"`  // 页数
+		UserId  string  `form:"user_id"`  // 任务ID
+		ProcId  int64  `form:"proc_id,optional"`  // 指定流程名称 ，非必填
+		SortByAsc int64 `form:"sort_by_asc"` //是否按照任务生成时间升序排列,0 降序1 升序
+		Data  string  `form:"data,optional"`  //
+	}
+
+	TaskFinishedListRequest{
+		Current  int64  `form:"current,default=1,optional"`  // 页码
+		PageSize  int64  `form:"page_size,default=10,optional"`  // 页数
+		UserId  string  `form:"user_id"`  // 任务ID
+		ProcName  string  `form:"proc_name,optional"`  // 指定流程名称 ，非必填
+		IgnoreStartByMe  int64 `form:"ignore_start_by_me,default=0,optional"` //忽略由我开启流程,而生成处理人是我自己的任务  0 不忽略1 忽略
+		SortByAsc int64 `form:"sort_by_asc,default=0"` //是否按照任务生成时间升序排列,0 降序1 升序
+		Data  string  `form:"data,optional"`  //
+	}
+
+	TaskUpstreamNodeListRequest{
+		TaskId  int64  `form:"task_id"`  // 任务ID
+	}
+
+	TaskWhatCanIDoRequest{
+		TaskId  int64  `form:"task_id"`  // 任务ID
+	}
+
+	TaskInfoRequest{
+		TaskId  int64  `form:"task_id"`  // 任务ID
+	}
+
+//    ProcTaskDelRequest {
+//		Id  int64  `path:"id"`  // 任务ID
+//    }
+//
+//    ProcTaskUpRequest {
+//		Id  int64  `json:"id"`  // 任务ID
+//		ProcId  int64  `json:"proc_id,optional"`  // 流程ID
+//		ProcInstId  int64  `json:"proc_inst_id,optional"`  // 流程实例ID
+//		BusinessId  string  `json:"business_id,optional"`  // 业务ID
+//		Starter  string  `json:"starter,optional"`  // 流程发起人用户ID
+//		NodeId  string  `json:"node_id,optional"`  // 节点ID
+//		NodeName  string  `json:"node_name,optional"`  // 节点名称
+//		PrevNodeId  string  `json:"prev_node_id,optional"`  // 上个处理节点ID
+//		IsCosigned  int64  `json:"is_cosigned,optional"`  // 任意一人通过即可 1:会签
+//		BatchCode  string  `json:"batch_code,optional"`  // 批次码.节点会被驳回，一个节点可能产生多批task,用此码做分别\"
+//		UserId  string  `json:"user_id,optional"`  // 分配用户ID
+//		Status  int64  `json:"status,optional"`  // 任务状态:0:初始 1:通过 2:驳回
+//		IsFinished  int64  `json:"is_finished,optional"`  // 0:任务未完成 1:处理完成
+//		Comment  string  `json:"comment,optional"`  // 任务备注
+//		ProcInstCreateTime  int64  `json:"proc_inst_create_time,optional"`  // 流程实例创建时间
+//		FinishedTime  int64  `json:"finished_time,optional"`  // 处理任务时间
+//		Data  string  `json:"data,optional"`  //
+//    }
+//
+//
+//    ProcTaskListRequest {
+//		Current  int64  `form:"current,default=1,optional"`  // 页码
+//		PageSize  int64  `form:"page_size,default=10,optional"`  // 页数
+//		ProcId  int64  `form:"proc_id,default=99,optional"`  // 流程ID
+//		ProcInstId  int64  `form:"proc_inst_id,default=99,optional"`  // 流程实例ID
+//		BusinessId  string  `form:"business_id,optional"`  // 业务ID
+//		Starter  string  `form:"starter,optional"`  // 流程发起人用户ID
+//		NodeId  string  `form:"node_id,optional"`  // 节点ID
+//		NodeName  string  `form:"node_name,optional"`  // 节点名称
+//		PrevNodeId  string  `form:"prev_node_id,optional"`  // 上个处理节点ID
+//		IsCosigned  int64  `form:"is_cosigned,default=99,optional"`  // 任意一人通过即可 1:会签
+//		BatchCode  string  `form:"batch_code,optional"`  // 批次码.节点会被驳回，一个节点可能产生多批task,用此码做分别\"
+//		UserId  string  `form:"user_id,optional"`  // 分配用户ID
+//		Status  int64  `form:"status,default=99,optional"`  // 任务状态:0:初始 1:通过 2:驳回
+//		IsFinished  int64  `form:"is_finished,default=99,optional"`  // 0:任务未完成 1:处理完成
+//		Comment  string  `form:"comment,optional"`  // 任务备注
+//		ProcInstCreateTime  int64  `form:"proc_inst_create_time,optional"`  // 流程实例创建时间
+//		FinishedTime  int64  `form:"finished_time,optional"`  // 处理任务时间
+//		Data  string  `form:"data,optional"`  //
+//    }
+//
+//    ProcTaskInfoRequest {
+//		Id  int64  `form:"id"`  // 任务ID
+//    }
+
+)
+
+@server(
+    //声明当前service下所有路由需要jwt鉴权，且会自动生成包含jwt逻辑的代码
+    jwt: Auth
+    group: procTask
+)
+
+service Workflow {
+
+    // 任务通过
+    @handler TaskPass
+    post /workflow/taskPass (TaskPassRequest) returns (Response)
+
+	// 任务通过后流程直接返回到上一个驳回我的节点
+	@handler TaskPassDirectlyToWhoRejectedMe
+	post /workflow/taskPassDirectlyToWhoRejectedMe (TaskPassDirectlyToWhoRejectedMeRequest) returns (Response)
+
+	// 任务驳回
+	@handler TaskReject
+	post /workflow/taskReject (TaskRejectRequest) returns (Response)
+
+	// 自由任务驳回
+	@handler TaskFreeRejectToUpstreamNode
+	post /workflow/taskFreeRejectToUpstreamNode (TaskFreeRejectToUpstreamNodeRequest) returns (Response)
+
+	// 将任务转交给他人处理
+	@handler TaskTransfer
+	post /workflow/taskTransfer (TaskTransferRequest) returns (Response)
+
+	// 获取待办任务
+	@handler TaskToDoList
+	get /workflow/taskToDoList (TaskToDoListRequest) returns (Response)
+
+	// 获取已办任务
+	@handler TaskFinishedList
+	get /workflow/taskFinishedList (TaskFinishedListRequest) returns (Response)
+
+	// 获取本任务所在节点的所有上游节点
+	@handler TaskUpstreamNodeList
+	get /workflow/taskUpstreamNodeList (TaskUpstreamNodeListRequest) returns (Response)
+
+	// 当前任务可以执行哪些操作
+	@handler TaskWhatCanIDo
+	get /workflow/taskWhatCanIDo (TaskWhatCanIDoRequest) returns (Response)
+
+	// 任务信息
+	@handler TaskInfo
+	get /workflow/taskInfo (TaskInfoRequest) returns (Response)
+
+//    // 删除
+//    @handler ProcTaskDel
+//    delete /workflow/procTask/:id (ProcTaskDelRequest) returns (Response)
+//
+//    // 更新
+//    @handler ProcTaskUp
+//    put /workflow/procTask (ProcTaskUpRequest) returns (Response)
+//
+//    // 分页查询
+//    @handler ProcTaskList
+//    get /workflow/procTask (ProcTaskListRequest) returns (Response)
+//
+//    // 查询详细信息
+//    @handler ProcTaskInfo
+//    get /workflow/procTaskInfo (ProcTaskInfoRequest) returns (Response)
+}

@@ -1,0 +1,24 @@
+syntax = "v1"
+
+import "doc/attendance.api"
+import "doc/scheduling.api"
+import "doc/scheduling_type.api"
+import "doc/team.api"
+import "doc/team_type.api"
+
+type (
+	Response {
+		Code int64       `json:"code"` // 状态码
+		Msg  string      `json:"msg"` // 消息
+		Data interface{} `json:"data"` // 数据
+	}
+)
+
+info (
+	title:   "排班管理"
+	desc:    "排班管理"
+	author:  "gaop"
+	email:   "740775519@qq.com"
+	version: "1.0"
+)
+

@@ -1,0 +1,396 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "scheduling"
+    }
+  ],
+  "paths": {
+    "/scheduler/scheduling/{id}": {
+      "delete": {
+        "summary": "删除scheduling",
+        "x-apifox-folder": "scheduling",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "scheduling"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "部门人员ID",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+
+        },
+        "x-run-in-apifox": "",
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/scheduler/schedulingInfo": {
+      "get": {
+        "summary": "根据ID查询scheduling",
+        "x-apifox-folder": "scheduling",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "scheduling"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "部门人员ID",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+
+        },
+        "x-run-in-apifox": "",
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/scheduler/scheduling": {
+      "post": {
+        "summary": "添加scheduling",
+        "x-apifox-folder": "scheduling",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "scheduling"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "time": {
+					"type": "integer",
+					"description": "排班日期"
+				  },
+				  "name": {
+					"type": "string",
+					"description": "排班名称"
+				  },
+				  "start_time": {
+					"type": "integer",
+					"description": "开始时间"
+				  },
+				  "end_time": {
+					"type": "integer",
+					"description": "结束时间"
+				  },
+				  "team_name": {
+					"type": "string",
+					"description": "执勤部门"
+				  },
+				  "user_name": {
+					"type": "string",
+					"description": "执勤人"
+				  },
+				  "job_start_time": {
+					"type": "integer",
+					"description": "上班打卡时间"
+				  },
+				  "job_end_time": {
+					"type": "integer",
+					"description": "下班打卡时间"
+				  },
+				  "colour": {
+					"type": "string",
+					"description": "颜色"
+				  },
+				  "team_id": {
+					"type": "string",
+					"description": "部门ID"
+				  },
+				  "user_id": {
+					"type": "string",
+					"description": "用户ID"
+				  },
+				  "is_finished": {
+					"type": "integer",
+					"description": "是否完成"
+				  }
+                }
+              }
+            }
+          }
+        },
+         "responses": {
+
+         },
+        "x-run-in-apifox": "",
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "get": {
+        "summary": "分页查询scheduling",
+        "x-apifox-folder": "scheduling",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "scheduling"
+        ],
+        "parameters": [
+          {
+			"name": "current",
+			"in": "query",
+			"description": "页码",
+			"required": false,
+			"schema": {
+			  "type": "integer"
+			}
+		  },
+		  {
+			"name": "page_size",
+			"in": "query",
+			"description": "页数",
+			"required": false,
+			"schema": {
+			  "type": "integer"
+			}
+		  },
+		  {
+			"name": "time",
+			"in": "query",
+			"description": "排班日期",
+			"required": false,
+			"schema": {
+			  "type": "integer"
+			}
+		  },
+		  {
+			"name": "name",
+			"in": "query",
+			"description": "排班名称",
+			"required": false,
+			"schema": {
+			  "type": "string"
+			}
+		  },
+		  {
+			"name": "start_time",
+			"in": "query",
+			"description": "开始时间",
+			"required": false,
+			"schema": {
+			  "type": "integer"
+			}
+		  },
+		  {
+			"name": "end_time",
+			"in": "query",
+			"description": "结束时间",
+			"required": false,
+			"schema": {
+			  "type": "integer"
+			}
+		  },
+		  {
+			"name": "team_name",
+			"in": "query",
+			"description": "执勤部门",
+			"required": false,
+			"schema": {
+			  "type": "string"
+			}
+		  },
+		  {
+			"name": "user_name",
+			"in": "query",
+			"description": "执勤人",
+			"required": false,
+			"schema": {
+			  "type": "string"
+			}
+		  },
+		  {
+			"name": "job_start_time",
+			"in": "query",
+			"description": "上班打卡时间",
+			"required": false,
+			"schema": {
+			  "type": "integer"
+			}
+		  },
+		  {
+			"name": "job_end_time",
+			"in": "query",
+			"description": "下班打卡时间",
+			"required": false,
+			"schema": {
+			  "type": "integer"
+			}
+		  },
+		  {
+			"name": "colour",
+			"in": "query",
+			"description": "颜色",
+			"required": false,
+			"schema": {
+			  "type": "string"
+			}
+		  },
+		  {
+			"name": "team_id",
+			"in": "query",
+			"description": "部门ID",
+			"required": false,
+			"schema": {
+			  "type": "string"
+			}
+		  },
+		  {
+			"name": "user_id",
+			"in": "query",
+			"description": "用户ID",
+			"required": false,
+			"schema": {
+			  "type": "string"
+			}
+		  },
+		  {
+			"name": "is_finished",
+			"in": "query",
+			"description": "是否完成",
+			"required": false,
+			"schema": {
+			  "type": "integer"
+			}
+		  }
+        ],
+         "responses": {
+
+         },
+        "x-run-in-apifox": "",
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "put": {
+        "summary": "修改scheduling",
+        "x-apifox-folder": "scheduling",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "scheduling"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                   "id": {
+					"type": "string",
+					"description": "部门人员ID"
+				  },
+				  "time": {
+					"type": "integer",
+					"description": "排班日期"
+				  },
+				  "name": {
+					"type": "string",
+					"description": "排班名称"
+				  },
+				  "start_time": {
+					"type": "integer",
+					"description": "开始时间"
+				  },
+				  "end_time": {
+					"type": "integer",
+					"description": "结束时间"
+				  },
+				  "team_name": {
+					"type": "string",
+					"description": "执勤部门"
+				  },
+				  "user_name": {
+					"type": "string",
+					"description": "执勤人"
+				  },
+				  "job_start_time": {
+					"type": "integer",
+					"description": "上班打卡时间"
+				  },
+				  "job_end_time": {
+					"type": "integer",
+					"description": "下班打卡时间"
+				  },
+				  "colour": {
+					"type": "string",
+					"description": "颜色"
+				  },
+				  "team_id": {
+					"type": "string",
+					"description": "部门ID"
+				  },
+				  "user_id": {
+					"type": "string",
+					"description": "用户ID"
+				  },
+				  "is_finished": {
+					"type": "integer",
+					"description": "是否完成"
+				  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+
+        },
+        "x-run-in-apifox": "",
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}

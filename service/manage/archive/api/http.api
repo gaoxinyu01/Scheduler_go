@@ -1,0 +1,10 @@
+import "doc/applogger.api"
+
+type (
+	Response {
+		Code int         `json:"code"`
+		Msg  string      `json:"msg"`
+		Data interface{} `json:"data"`
+	}
+)
+

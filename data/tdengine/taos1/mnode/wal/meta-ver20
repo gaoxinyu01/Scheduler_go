@@ -1,0 +1,57 @@
+{
+	"meta":	{
+		"firstVer":	"0",
+		"snapshotVer":	"1210",
+		"commitVer":	"1210",
+		"lastVer":	"1210"
+	},
+	"files":	[{
+			"firstVer":	"0",
+			"lastVer":	"10",
+			"createTs":	"1732685297",
+			"closeTs":	"1732685297",
+			"fileSize":	"10096"
+		}, {
+			"firstVer":	"11",
+			"lastVer":	"210",
+			"createTs":	"1732685297",
+			"closeTs":	"1732782476",
+			"fileSize":	"176400"
+		}, {
+			"firstVer":	"211",
+			"lastVer":	"410",
+			"createTs":	"1732782476",
+			"closeTs":	"1733099959",
+			"fileSize":	"176400"
+		}, {
+			"firstVer":	"411",
+			"lastVer":	"610",
+			"createTs":	"1733099959",
+			"closeTs":	"1733206121",
+			"fileSize":	"175582"
+		}, {
+			"firstVer":	"611",
+			"lastVer":	"810",
+			"createTs":	"1733206121",
+			"closeTs":	"1733297742",
+			"fileSize":	"176400"
+		}, {
+			"firstVer":	"811",
+			"lastVer":	"1010",
+			"createTs":	"1733297742",
+			"closeTs":	"1733818719",
+			"fileSize":	"174764"
+		}, {
+			"firstVer":	"1011",
+			"lastVer":	"1210",
+			"createTs":	"1733818719",
+			"closeTs":	"1734413067",
+			"fileSize":	"173946"
+		}, {
+			"firstVer":	"1211",
+			"lastVer":	"-1",
+			"createTs":	"1734413067",
+			"closeTs":	"-1",
+			"fileSize":	"0"
+		}]
+}

@@ -1,0 +1,34 @@
+Name: scheduler.rpc
+ListenOn: 0.0.0.0:1101
+Mode: dev
+Timeout: 3000000
+
+Log:
+  ServiceName: scheduler.rpc
+  Level: info
+
+
+Etcd:
+  Hosts:
+    - 127.0.0.1:30000
+  Key: scheduler.rpc
+
+
+Mysql:
+  DataSource: root:scheduler999999@tcp(127.0.0.1:33069)/scheduler_db?charset=utf8mb4&parseTime=true&loc=Local
+
+
+CacheRedis:
+  - Host: "redis-1:6381"
+    Type: "cluster"
+    Pass: "G6200000000"
+
+
+Tdengine:
+  Host: "127.0.0.1"
+  Port: 6041
+  UserName: root
+  Pass: POOTACA93V
+
+WorkingSystem: 9 # 默认8小时工作制
+IsOvernight: false #默认不隔夜

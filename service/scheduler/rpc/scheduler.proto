@@ -1,0 +1,436 @@
+// file: operation.proto
+syntax = "proto3";
+
+package schedulerclient;
+
+option go_package = "./schedulerclient";
+
+
+// 通用空返回
+message CommonResp{
+
+}
+//Attendance start-------------------
+
+// Attendance 添加
+message AttendanceAddReq{
+  string  name = 1;  // 考勤人
+  string  user_id = 2;  // 用户ID
+  string  date = 3;  // 考勤日期
+  int64   check_in_time = 4;  // 签到时间
+  string  check_in_photo = 5;  // 签到图片
+  int64   sign_off_time = 6;  // 签退时间
+  string  sign_off_photo = 7;  // 签退图片
+  int64   state = 8;  // 考勤状态 上班打卡:1,下班打卡:2,打卡正常:3,打卡异常:4
+  string  created_name = 9;  // 创建人
+  string  tenant_id = 10;  // 租户ID
+}
+// Attendance 签退
+message AttendancePatchReq{
+  string  user_id = 2;  // 用户ID
+  string  date = 3;  // 考勤日期
+  int64   sign_off_time = 7;  // 签退时间
+  string  sign_off_photo = 8;  // 签退图片
+  string  tenant_id = 11;  // 租户ID
+}
+// Attendance 删除
+message AttendanceDeleteReq{
+  string  id = 1;  // 考勤ID
+  string  deleted_name = 2;  // 删除人
+  string  tenant_id = 3;  // 租户ID
+}
+
+// Attendance 更新
+message AttendanceUpdateReq{
+  string  id = 1;  // 考勤ID
+  string  name = 2;  // 考勤人
+  string  user_id = 3;  // 用户ID
+  string  date = 4;  // 考勤日期
+  int64   check_in_time = 5;  // 签到时间
+  string  check_in_photo = 6;  // 签到图片
+  int64   sign_off_time = 7;  // 签退时间
+  string  sign_off_photo = 8;  // 签退图片
+  int64   state = 9;  // 考勤状态 上班打卡:1,下班打卡:2,打卡正常:3,打卡异常:4
+  string  updated_name = 10;  // 更新人
+  string  tenant_id = 11;  // 租户ID
+}
+
+// Attendance 单个查询
+message AttendanceFindOneReq{
+  string  id = 1;  // 考勤ID
+  string  tenant_id = 2;  // 租户ID
+}
+
+// Attendance 单个查询返回
+message AttendanceFindOneResp{
+  string  id = 1;  // 考勤ID
+  string  name = 2;  // 考勤人
+  string  user_id = 3;  // 用户ID
+  string  date = 4;  // 考勤日期
+  int64   check_in_time = 5;  // 签到时间
+  string  check_in_photo = 6;  // 签到图片
+  int64   sign_off_time = 7;  // 签退时间
+  string  sign_off_photo = 8;  // 签退图片
+  int64   state = 9;  // 考勤状态 上班打卡:1,下班打卡:2,打卡正常:3,打卡异常:4
+  int64   created_at = 10;  // 创建时间
+  int64   updated_at = 11;  // 更新时间
+  string  created_name = 12;  // 创建人
+  string  updated_name = 13;  // 更新人
+}
+// Attendance 某天
+message AttendanceFindOneDayReq{
+  string  tenant_id = 2;  // 租户ID
+  string  user_id = 3;  // 用户ID
+  string  date = 4;  // 考勤日期
+}
+// Attendance 单个某天返回
+message AttendanceFindOneDayResp{
+  string  date = 4;  // 考勤日期
+  int64   check_in_time = 6;  // 签到时间
+  string  check_in_photo = 7;  // 签到图片
+  int64   sign_off_time = 8;  // 签退时间
+  string  sign_off_photo = 9;  // 签退图片
+  int64   state = 10;  // 考勤状态 上班打卡:1,打卡正常:2,打卡异常:3
+}
+// Attendance 分页查询
+message AttendanceListReq{
+  int64  current = 1;  // 页码
+  int64  page_size = 2;  // 页数
+  string  name = 3;  // 考勤人
+  string  user_id = 4;  // 用户ID
+  string  date = 5;  // 考勤日期
+  int64   check_in_time = 6;  // 签到时间
+  string  check_in_photo = 7;  // 签到图片
+  int64   sign_off_time = 8;  // 签退时间
+  string  sign_off_photo = 9;  // 签退图片
+  int64   state = 10;  // 考勤状态 上班打卡:1,打卡正常:2,打卡异常:3
+  string  tenant_id = 11;  // 租户ID
+}
+
+// Attendance 分页查询返回
+message AttendanceListResp{
+  int64  total = 1;  // 总数
+  repeated  AttendanceListData list = 2;  // 内容
+}
+
+// Attendance 列表信息
+message AttendanceListData{
+  string  id = 1;  // 考勤ID
+  string  name = 2;  // 考勤人
+  string  user_id = 3;  // 用户ID
+  string  date = 4;  // 考勤日期
+  int64   check_in_time = 5;  // 签到时间
+  string  check_in_photo = 6;  // 签到图片
+  int64   sign_off_time = 7;  // 签退时间
+  string  sign_off_photo = 8;  // 签退图片
+  int64   state = 9;  // 考勤状态 上班打卡:1,下班打卡:2,打卡正常:3,打卡异常:4
+  int64   created_at = 10;  // 创建时间
+  int64   updated_at = 11;  // 更新时间
+  string  created_name = 12;  // 创建人
+  string  updated_name = 13;  // 更新人
+}
+
+// 根据时间段获取每日考勤
+message AttendanceByDaysReq{
+  int64  start_time = 1;  // 开始时间
+  int64  end_time = 2;  // 结束时间
+  string  user_id = 3;  // 用户ID
+  string tenant_id = 7;
+}
+
+message AttendanceByDaysResp{
+  repeated AttendanceByDaysCounts list = 4;
+}
+message AttendanceByDaysCounts{
+  string  date = 4;  // 考勤日期
+  int64   check_in_time = 6;  // 签到时间
+  string  check_in_photo = 7;  // 签到图片
+  int64   sign_off_time = 8;  // 签退时间
+  string  sign_off_photo = 9;  // 签退图片
+  int64   state = 10;  // 考勤状态 上班打卡:1,打卡正常:2,打卡异常:3
+
+}
+//Attendance end---------------------
+
+//TeamType start---------------------
+// 增加部门
+message TeamTypeAddReq {
+  string created_name = 1; // 创建人
+  string name = 2; // 部门名称
+  string description = 3; // 描述
+  string tenant_id = 4; // 租户id
+}
+
+
+// 删除部门
+message TeamTypeDeleteReq {
+  string deleted_name = 1; // 创建人
+  string id = 2;  //部门id
+  string tenant_id = 3; // 租户id
+}
+
+
+
+// 更新部门
+message TeamTypeUpdateReq {
+  string id = 1;   //部门ID
+  string updated_name = 2; // 创建人
+  string name = 3; // 部门名称
+  string description = 4; // 描述
+  string tenant_id = 5; // 租户id
+}
+
+
+
+// 查询部门
+message TeamTypeFindListReq {
+  int64 current = 1;
+  int64 page_size = 2;
+  string name = 3; // 部门名称
+  string description = 4; // 描述
+  string tenant_id = 5; // 租户id
+}
+
+// 查询部门返回
+message TeamTypeFindListResp {
+  int64 total = 1;
+  repeated  TeamTypeListData list = 2;
+}
+
+message  TeamTypeListData {
+  string  id = 1;
+  string name = 2;
+  string description = 3;
+  int64 people_count = 4;  //排班人员总数
+
+}
+
+
+//TeamType end---------------------
+
+
+//Team start---------------------
+// 增加部门人员
+message TeamAddReq {
+  string created_name = 1; // 创建人
+  repeated string user_ids = 2; //  用户ID
+  string team_type_id = 3; // 部门ID
+  string tenant_id = 4; // 租户ID
+}
+
+// 删除部门人员
+message TeamDeleteReq {
+  string id = 1;
+  string tenant_id = 2;
+}
+
+// 更新部门人员
+message TeamUpdateReq {
+  string id = 1;
+  string updated_name = 2; // 创建人
+  string user_id = 3; //  用户ID
+  string tenant_id = 4; // 租户ID
+}
+
+
+// 查询部门人员
+message TeamFindListReq {
+  int64  current = 1;
+  int64 page_size = 2;
+  string nick_name = 3; // 昵称
+  string major = 4; // 专业
+  string position = 5; // 岗位
+  string telephone = 6; // 手机号
+  string team_type_id = 7; // 部门ID
+  string tenant_id = 8; // 租户ID
+}
+
+// 查询部门人员返回
+message TeamFindListResp {
+  int64 total = 1;
+  repeated TeamUser list = 2;
+}
+
+
+message  TeamUser {
+  string id = 1;
+  string account = 2;
+  string nick_name = 3;
+  string major = 4;
+  string position = 5;
+  string avatar = 6;
+  string email = 7;
+  string telephone = 8;
+  int64 state = 9;
+  string user_id = 10;
+}
+
+//Team end---------------------
+
+
+//SchedulingType start---------------------
+
+// 添加排班类型
+message SchedulingTypeAddReq {
+  string created_name = 1; // 创建人
+  string name = 2; //  用户ID
+  string start_time = 3; // 部门ID
+  string end_time = 4; // 租户ID
+  string remark = 5;  //备注
+  string colour = 6;  //备注
+  string tenant_id = 7; //租户ID
+}
+
+// 删除添加排班类型
+message SchedulingTypeDeleteReq {
+  string id = 1;
+  string tenant_id = 2;
+}
+
+// 更新添加排班类型
+message SchedulingTypeUpdateReq {
+  string id = 1;
+  string updated_name = 2; // 创建人
+  string name = 3; //  用户ID
+  string start_time = 4; // 部门ID
+  string end_time = 5; // 租户ID
+  string remark = 6;  //备注
+  string colour = 7;  //备注
+  string TenantId = 8; //租户ID
+}
+
+
+// 查询排班类型
+message SchedulingTypeFindListReq {
+  int64  current = 1;
+  int64 page_size = 2;
+  string tenant_id = 3; // 租户ID
+}
+
+// 查询排班类型返回
+message SchedulingTypeFindListResp {
+  int64 total = 1;
+  repeated SchedulingTypeFindListData list = 2;
+}
+
+message  SchedulingTypeFindListData {
+  string  id = 1;
+  string name = 2; //  用户ID
+  string start_time = 3; // 开始时间
+  string end_time = 4; // 结束时间
+  string colour = 5;  //备注
+  string remark = 6;  //备注
+}
+
+
+//SchedulingType end---------------------
+
+//Scheduling start---------------------
+
+// 增加排班列表
+message  SchedulingAddReq {
+  bytes data = 1;
+}
+
+// 删除排班列表
+message  SchedulingDeleteReq {
+  string id = 1;
+  string deleted_name = 2;
+  string tenant_id = 3;
+}
+
+// 更新排班列表
+message  SchedulingUpdateReq {
+  string id = 1;
+  string updated_name = 2;
+  int64 time = 3;
+  string name = 4; //  名字
+  int64 start_time = 5; // 开始时间
+  int64 end_time = 6; // 结束时间
+  string colour = 7; // 颜色
+  string user_name = 8;
+  string team_id = 9;
+  string user_id = 10;
+  string tenant_id = 11;
+}
+
+// 查询排班列表
+message  SchedulingFindListReq {
+  int64  current = 1;
+  int64 page_size = 2;
+  int64 time = 3;
+  string name = 4; //  名字
+  int64 start_time = 5; // 开始时间
+  int64 end_time = 6; // 结束时间
+  string team_name = 7;
+  string user_name = 8;
+  string tenant_id = 9;
+}
+
+// 查询排班列表返回
+message  SchedulingFindListResp {
+  int64 total = 1;
+  repeated SchedulingFindListData list = 2;
+}
+
+message  SchedulingFindListData {
+  string  id = 1;
+  int64 created_at = 2;
+  int64 updated_at = 3;
+  string created_name = 4;
+  string updated_name = 5;
+  int64 time = 6; //  排班时间
+  string name = 7; //  用户ID
+  int64 start_time = 8; // 部门ID
+  int64 end_time = 9; // 租户ID
+  string colour = 10; // 租户ID
+  string team_name = 11;  //备注
+  string user_name = 12;
+  int64 job_start_time = 13;
+  int64 job_end_time = 14;
+}
+
+//Scheduling end---------------------
+
+
+service Scheduler {
+
+
+  //考勤
+  rpc AttendanceAdd(AttendanceAddReq) returns(CommonResp);//签到
+  //签退
+  rpc AttendancePatch(AttendancePatchReq) returns(CommonResp);
+  rpc AttendanceDelete(AttendanceDeleteReq) returns(CommonResp);
+  rpc AttendanceUpdate(AttendanceUpdateReq) returns(CommonResp);
+  rpc AttendanceFindOne(AttendanceFindOneReq) returns(AttendanceFindOneResp);
+  rpc AttendanceList(AttendanceListReq) returns(AttendanceListResp);
+  //获取某天考勤
+  rpc AttendanceFindOneDay(AttendanceFindOneDayReq) returns(AttendanceFindOneDayResp);
+  // 根据时间段获取每日考勤
+  rpc AttendanceByDays(AttendanceByDaysReq) returns(AttendanceByDaysResp);
+
+
+  // 部门
+  rpc TeamTypeAdd(TeamTypeAddReq) returns(CommonResp);
+  rpc TeamTypeDelete(TeamTypeDeleteReq) returns(CommonResp);
+  rpc TeamTypeUpdate(TeamTypeUpdateReq) returns(CommonResp);
+  rpc TeamTypeFindList(TeamTypeFindListReq) returns(TeamTypeFindListResp);
+
+  // 部门人员表
+  rpc TeamAdd(TeamAddReq) returns(CommonResp);
+  rpc TeamDelete(TeamDeleteReq) returns(CommonResp);
+  rpc TeamUpdate(TeamUpdateReq) returns(CommonResp);
+  rpc TeamFindList(TeamFindListReq) returns(TeamFindListResp);
+
+  // 排班类型
+  rpc SchedulingTypeAdd(SchedulingTypeAddReq) returns(CommonResp);
+  rpc SchedulingTypeDelete(SchedulingTypeDeleteReq) returns(CommonResp);
+  rpc SchedulingTypeUpdate(SchedulingTypeUpdateReq) returns(CommonResp);
+  rpc SchedulingTypeFindList(SchedulingTypeFindListReq) returns(SchedulingTypeFindListResp);
+
+  // 排班列表
+  rpc SchedulingAdd(SchedulingAddReq) returns(CommonResp);
+  rpc SchedulingDelete(SchedulingDeleteReq) returns(CommonResp);
+  rpc SchedulingUpdate(SchedulingUpdateReq) returns(CommonResp);
+  rpc SchedulingFindList(SchedulingFindListReq) returns(SchedulingFindListResp);
+}

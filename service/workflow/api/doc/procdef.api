@@ -1,0 +1,76 @@
+syntax = "v1"
+
+
+type (
+	ProcDefSaveRequest {
+		Resource  string  `json:"resource"`  // 流程定义模板
+		CreateUserId  string  `json:"create_user_id"`  // 创建者ID
+		Data  string  `json:"data,optional"`  //
+	}
+
+	ProcDefDelRequest {
+		Id  int64  `path:"id"`  // 流程模板ID
+	}
+
+	ProcDefUpRequest {
+		Id  int64  `json:"id"`  // 流程模板ID
+		Name  string  `json:"name,optional"`  // 流程名称
+		Version  int64  `json:"version,optional"`  // 版本号
+		ProcType  int64  `json:"proc_type,optional"`  // 流程类型
+		Resource  string  `json:"resource,optional"`  // 流程定义模板
+		CreateUserId  string  `json:"create_user_id,optional"`  // 创建者ID
+		Source  string  `json:"source,optional"`  // 来源
+		Data  string  `json:"data,optional"`  //
+	}
+
+
+	ProcDefListRequest {
+		Current  int64  `form:"current,default=1,optional"`  // 页码
+		PageSize  int64  `form:"page_size,default=10,optional"`  // 页数
+		Name  string  `form:"name,optional"`  // 流程名称
+		Version  int64  `form:"version,default=99,optional"`  // 版本号
+		ProcType  int64  `form:"proc_type,default=99,optional"`  // 流程类型
+		Resource  string  `form:"resource,optional"`  // 流程定义模板
+		CreateUserId  string  `form:"create_user_id,optional"`  // 创建者ID
+		Source  string  `form:"source,optional"`  // 来源
+		Data  string  `form:"data,optional"`  //
+	}
+
+	ProcDefInfoRequest {
+		Id  int64  `form:"id"`  // 流程模板ID
+	}
+
+)
+
+
+@server(
+	//声明当前service下所有路由需要jwt鉴权，且会自动生成包含jwt逻辑的代码
+	jwt: Auth
+	group: procDef
+)
+
+service Workflow {
+
+	// 流程定义保存/升级
+	@handler ProcDefSave
+	post /workflow/procDef (ProcDefSaveRequest) returns (Response)
+
+	// 获取所有流程/特定source
+	@handler ProcDefList
+	get /workflow/procDef (ProcDefListRequest) returns (Response)
+
+	// 获取流程定义
+	@handler ProcDefInfo
+	get /workflow/procDefInfo (ProcDefInfoRequest) returns (Response)
+
+	// 删除
+	@handler ProcDefDel
+	delete /workflow/procDef/:id (ProcDefDelRequest) returns (Response)
+
+	// 更新
+	@handler ProcDefUp
+	put /workflow/procDef (ProcDefUpRequest) returns (Response)
+
+
+
+}

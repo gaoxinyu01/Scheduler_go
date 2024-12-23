@@ -1,0 +1,328 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "attendance"
+    }
+  ],
+  "paths": {
+    "/scheduler/attendance/{id}": {
+      "delete": {
+        "summary": "删除attendance",
+        "x-apifox-folder": "attendance",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "attendance"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "考勤ID",
+            "required": true,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+
+        },
+        "x-run-in-apifox": "",
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/scheduler/attendanceInfo": {
+      "get": {
+        "summary": "根据ID查询attendance",
+        "x-apifox-folder": "attendance",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "attendance"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "考勤ID",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+
+        },
+        "x-run-in-apifox": "",
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/scheduler/attendance": {
+      "post": {
+        "summary": "添加attendance",
+        "x-apifox-folder": "attendance",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "attendance"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+					"type": "string",
+					"description": "考勤人"
+				  },
+				  "user_id": {
+					"type": "string",
+					"description": "用户ID"
+				  },
+				  "date": {
+					"type": "string",
+					"description": "考勤日期"
+				  },
+				  "check_in_time": {
+					"type": "integer",
+					"description": "签到时间"
+				  },
+				  "check_in_photo": {
+					"type": "string",
+					"description": "签到图片"
+				  },
+				  "sign_off_time": {
+					"type": "integer",
+					"description": "签退时间"
+				  },
+				  "sign_off_photo": {
+					"type": "string",
+					"description": "签退图片"
+				  },
+				  "state": {
+					"type": "integer",
+					"description": "考勤状态 上班打卡:1,打卡正常:2,打卡异常:3"
+				  }
+                }
+              }
+            }
+          }
+        },
+         "responses": {
+
+         },
+        "x-run-in-apifox": "",
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "get": {
+        "summary": "分页查询attendance",
+        "x-apifox-folder": "attendance",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "attendance"
+        ],
+        "parameters": [
+          {
+			"name": "current",
+			"in": "query",
+			"description": "页码",
+			"required": false,
+			"schema": {
+			  "type": "integer"
+			}
+		  },
+		  {
+			"name": "page_size",
+			"in": "query",
+			"description": "页数",
+			"required": false,
+			"schema": {
+			  "type": "integer"
+			}
+		  },
+		  {
+			"name": "name",
+			"in": "query",
+			"description": "考勤人",
+			"required": false,
+			"schema": {
+			  "type": "string"
+			}
+		  },
+		  {
+			"name": "user_id",
+			"in": "query",
+			"description": "用户ID",
+			"required": false,
+			"schema": {
+			  "type": "string"
+			}
+		  },
+		  {
+			"name": "date",
+			"in": "query",
+			"description": "考勤日期",
+			"required": false,
+			"schema": {
+			  "type": "string"
+			}
+		  },
+		  {
+			"name": "check_in_time",
+			"in": "query",
+			"description": "签到时间",
+			"required": false,
+			"schema": {
+			  "type": "integer"
+			}
+		  },
+		  {
+			"name": "check_in_photo",
+			"in": "query",
+			"description": "签到图片",
+			"required": false,
+			"schema": {
+			  "type": "string"
+			}
+		  },
+		  {
+			"name": "sign_off_time",
+			"in": "query",
+			"description": "签退时间",
+			"required": false,
+			"schema": {
+			  "type": "integer"
+			}
+		  },
+		  {
+			"name": "sign_off_photo",
+			"in": "query",
+			"description": "签退图片",
+			"required": false,
+			"schema": {
+			  "type": "string"
+			}
+		  },
+		  {
+			"name": "state",
+			"in": "query",
+			"description": "考勤状态 上班打卡:1,打卡正常:2,打卡异常:3",
+			"required": false,
+			"schema": {
+			  "type": "integer"
+			}
+		  }
+        ],
+         "responses": {
+
+         },
+        "x-run-in-apifox": "",
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "put": {
+        "summary": "修改attendance",
+        "x-apifox-folder": "attendance",
+        "x-apifox-status": "developing",
+        "deprecated": false,
+        "description": "",
+        "tags": [
+          "attendance"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                   "id": {
+					"type": "string",
+					"description": "考勤ID"
+				  },
+				  "name": {
+					"type": "string",
+					"description": "考勤人"
+				  },
+				  "user_id": {
+					"type": "string",
+					"description": "用户ID"
+				  },
+				  "date": {
+					"type": "string",
+					"description": "考勤日期"
+				  },
+				  "check_in_time": {
+					"type": "integer",
+					"description": "签到时间"
+				  },
+				  "check_in_photo": {
+					"type": "string",
+					"description": "签到图片"
+				  },
+				  "sign_off_time": {
+					"type": "integer",
+					"description": "签退时间"
+				  },
+				  "sign_off_photo": {
+					"type": "string",
+					"description": "签退图片"
+				  },
+				  "state": {
+					"type": "integer",
+					"description": "考勤状态 上班打卡:1,打卡正常:2,打卡异常:3"
+				  }
+                },
+                "required": [
+                  "id"
+                ]
+              }
+            }
+          }
+        },
+        "responses": {
+
+        },
+        "x-run-in-apifox": "",
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {}
+  }
+}

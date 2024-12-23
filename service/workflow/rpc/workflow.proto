@@ -1,0 +1,622 @@
+syntax = "proto3";
+
+package workflowclient;
+
+option go_package = "./workflowclient";
+
+// 通用空返回
+message CommonResp{
+
+}
+
+
+//ProcDef start-------------------
+
+// ProcDef 添加
+message ProcDefSaveReq{
+	string  resource = 1;  // 流程定义模板
+	string  create_user_id = 2;  // 创建者ID
+	string  tenant_id = 3;  // 租户ID
+	string  created_name = 4;  // 创建人
+	string  data = 5;  //
+}
+
+// ProcDef 删除
+message ProcDefDeleteReq{
+	int64   id = 1;  // 流程模板ID
+	string  tenant_id = 2;  // 租户ID
+	string  deleted_name = 3;  // 删除人
+}
+
+// ProcDef 更新
+message ProcDefUpdateReq{
+	int64   id = 1;  // 流程模板ID
+	string  name = 2;  // 流程名称
+	int64   version = 3;  // 版本号
+	int64   proc_type = 4;  // 流程类型
+	string  resource = 5;  // 流程定义模板
+	string  create_user_id = 6;  // 创建者ID
+	string  source = 7;  // 来源
+	string  tenant_id = 8;  // 租户ID
+	string  data = 9;  //
+	string  updated_name = 10;  // 更新人
+}
+
+// ProcDef 单个查询
+message ProcDefFindOneReq{
+	int64   id = 1;  // 流程模板ID
+	string  tenant_id = 2;  // 租户ID
+}
+
+// ProcDef 单个查询返回
+message ProcDefFindOneResp{
+	int64   id = 1;  // 流程模板ID
+	string  name = 2;  // 流程名称
+	int64   version = 3;  // 版本号
+	int64   proc_type = 4;  // 流程类型
+	string  resource = 5;  // 流程定义模板
+	string  create_user_id = 6;  // 创建者ID
+	string  source = 7;  // 来源
+	string  data = 8;  //
+	int64   created_at = 9;  // 创建时间
+	int64   updated_at = 10;  // 更新时间
+	string  created_name = 11;  // 创建人
+	string  updated_name = 12;  // 更新人
+}
+
+
+// ProcDef 分页查询
+message ProcDefListReq{
+	int64  current = 1;  // 页码
+	int64  page_size = 2;  // 页数
+	string  name = 3;  // 流程名称
+	int64   version = 4;  // 版本号
+	int64   proc_type = 5;  // 流程类型
+	string  resource = 6;  // 流程定义模板
+	string  create_user_id = 7;  // 创建者ID
+	string  source = 8;  // 来源
+	string  tenant_id = 9;  // 租户ID
+	string  data = 10;  //
+}
+
+// ProcDef 分页查询返回
+message ProcDefListResp{
+	int64  total = 1;  // 总数
+	repeated  ProcDefListData list = 2;  // 内容
+}
+
+// ProcDef 列表信息
+message ProcDefListData{
+	int64   id = 1;  // 流程模板ID
+	string  name = 2;  // 流程名称
+	int64   version = 3;  // 版本号
+	int64   proc_type = 4;  // 流程类型
+	string  resource = 5;  // 流程定义模板
+	string  create_user_id = 6;  // 创建者ID
+	string  source = 7;  // 来源
+	string  data = 8;  //
+	int64   created_at = 9;  // 创建时间
+	int64   updated_at = 10;  // 更新时间
+	string  created_name = 11;  // 创建人
+	string  updated_name = 12;  // 更新人
+}
+
+//ProcDef end---------------------
+
+//HistProcDef start-------------------
+
+
+// HistProcDef 分页查询
+message HistProcDefListReq{
+	int64  current = 1;  // 页码
+	int64  page_size = 2;  // 页数
+	int64   proc_id = 3;  // 流程模板ID
+	string  name = 4;  // 流程名称
+	int64   version = 5;  // 版本号
+	int64   proc_type = 6;  // 流程类型
+	string  resource = 7;  // 流程定义模板
+	string  create_user_id = 8;  // 创建者ID
+	string  source = 9;  // 来源
+	string  tenant_id = 10;  // 租户ID
+	string  data = 11;  //
+}
+
+// HistProcDef 分页查询返回
+message HistProcDefListResp{
+	int64  total = 1;  // 总数
+	repeated  HistProcDefListData list = 2;  // 内容
+}
+
+// HistProcDef 列表信息
+message HistProcDefListData{
+	int64   id = 1;  // ID
+	int64   proc_id = 2;  // 流程模板ID
+	string  name = 3;  // 流程名称
+	int64   version = 4;  // 版本号
+	int64   proc_type = 5;  // 流程类型
+	string  resource = 6;  // 流程定义模板
+	string  create_user_id = 7;  // 创建者ID
+	string  source = 8;  // 来源
+	string  data = 9;  //
+	int64   created_at = 10;  // 创建时间
+	int64   updated_at = 11;  // 更新时间
+	string  created_name = 12;  // 创建人
+	string  updated_name = 13;  // 更新人
+}
+
+//HistProcDef end---------------------
+
+//ProcInst start-------------------
+
+// ProcInst 添加
+message ProcInstStartReq{
+	int64   proc_id = 1;  // 流程ID
+	string  business_id = 2;  // 业务ID
+	string  comment = 3;  // 评论意见
+	string  variables_json = 4;  // 变量(Json)
+	string  tenant_id = 5;  // 租户ID
+	string  data = 6;  //
+	string  created_name = 7;  // 创建人
+}
+
+// ProcInst 删除
+message ProcInstDeleteReq{
+	int64   id = 1;  // 流程实例ID
+	string  tenant_id = 2;  // 租户ID
+	string  deleted_name = 3;  // 删除人
+}
+// ProcInst 撤销流程
+message ProcInstRevokeReq{
+	int64   id = 1;  // 流程实例ID
+	string   revoke_user_id = 2;  // 撤销发起用户ID
+	int64  force = 3;  // 是否强制撤销
+	string  tenant_id = 10;  // 租户ID
+	string  data = 11;  //
+	string  updated_name = 12;  // 更新人
+}
+// ProcInst 更新
+message ProcInstUpdateReq{
+	int64   id = 1;  // 流程实例ID
+	int64   proc_id = 2;  // 流程ID
+	string  proc_name = 3;  // 流程名称
+	int64   proc_version = 4;  // 流程版本号
+	string  business_id = 5;  // 业务ID
+	string  starter = 6;  // 流程发起人用户ID
+	string  current_node_id = 7;  // 当前进行节点ID
+	string  variables_json = 8;  // 变量(Json)
+	int64   status = 9;  // 状态 0 未完成（审批中） 1 已完成 2 撤销
+	string  tenant_id = 10;  // 租户ID
+	string  data = 11;  //
+	string  updated_name = 12;  // 更新人
+}
+
+// ProcInst 单个查询
+message ProcInstFindOneReq{
+	int64   id = 1;  // 流程实例ID
+	string  tenant_id = 2;  // 租户ID
+}
+
+// ProcInst 单个查询返回
+message ProcInstFindOneResp{
+	int64   id = 1;  // 流程实例ID
+	int64   proc_id = 2;  // 流程ID
+	string  proc_name = 3;  // 流程名称
+	int64   proc_version = 4;  // 流程版本号
+	string  business_id = 5;  // 业务ID
+	string  starter = 6;  // 流程发起人用户ID
+	string  current_node_id = 7;  // 当前进行节点ID
+	string  variables_json = 8;  // 变量(Json)
+	int64   status = 9;  // 状态 0 未完成（审批中） 1 已完成 2 撤销
+	string  data = 10;  //
+	int64   created_at = 11;  // 创建时间
+	int64   updated_at = 12;  // 更新时间
+	string  created_name = 13;  // 创建人
+	string  updated_name = 14;  // 更新人
+}
+
+
+// ProcInst 分页查询
+message ProcInstListReq{
+	int64  current = 1;  // 页码
+	int64  page_size = 2;  // 页数
+	int64   proc_id = 3;  // 流程ID
+	string  proc_name = 4;  // 流程名称
+	int64   proc_version = 5;  // 流程版本号
+	string  business_id = 6;  // 业务ID
+	string  starter = 7;  // 流程发起人用户ID
+	string  current_node_id = 8;  // 当前进行节点ID
+	string  variables_json = 9;  // 变量(Json)
+	int64   status = 10;  // 状态 0 未完成（审批中） 1 已完成 2 撤销
+	string  tenant_id = 11;  // 租户ID
+	string  data = 12;  //
+}
+
+// ProcInst 分页查询返回
+message ProcInstListResp{
+	int64  total = 1;  // 总数
+	repeated  ProcInstListData list = 2;  // 内容
+}
+
+// ProcInst 列表信息
+message ProcInstListData{
+	int64   id = 1;  // 流程实例ID
+	int64   proc_id = 2;  // 流程ID
+	string  proc_name = 3;  // 流程名称
+	int64   proc_version = 4;  // 流程版本号
+	string  business_id = 5;  // 业务ID
+	string  starter = 6;  // 流程发起人用户ID
+	string  current_node_id = 7;  // 当前进行节点ID
+	string  variables_json = 8;  // 变量(Json)
+	int64   status = 9;  // 状态 0 未完成（审批中） 1 已完成 2 撤销
+	string  data = 10;  //
+	int64   created_at = 11;  // 创建时间
+	int64   updated_at = 12;  // 更新时间
+	string  created_name = 13;  // 创建人
+	string  updated_name = 14;  // 更新人
+}
+
+//ProcInst end---------------------
+
+//ProcExecution start-------------------
+// ProcExecution 分页查询
+message ProcExecutionListReq{
+	int64  current = 1;  // 页码
+	int64  page_size = 2;  // 页数
+	int64   proc_id = 3;  // 实例ID
+	int64   proc_version = 4;  // 流程版本号
+	string  proc_name = 5;  // 流程名
+	string  node_id = 6;  // 节点ID
+	string  node_name = 7;  // 节点名称
+	string  prev_node_id = 8;  // 上级节点ID
+	int64   node_type = 9;  // 节点类型 0 开始节点，1 任务节点 ，2 网关节点，3 结束节点
+	int64   is_cosigned = 10;  // 是否会签  0 不会签  1 会签
+	string  tenant_id = 11;  // 租户ID
+	string  data = 12;  //
+}
+
+// ProcExecution 分页查询返回
+message ProcExecutionListResp{
+	int64  total = 1;  // 总数
+	repeated  ProcExecutionListData list = 2;  // 内容
+}
+
+// ProcExecution 列表信息
+message ProcExecutionListData{
+	int64   id = 1;  // 执行ID
+	int64   proc_id = 2;  // 实例ID
+	int64   proc_version = 3;  // 流程版本号
+	string  proc_name = 4;  // 流程名
+	string  node_id = 5;  // 节点ID
+	string  node_name = 6;  // 节点名称
+	string  prev_node_id = 7;  // 上级节点ID
+	int64   node_type = 8;  // 节点类型 0 开始节点，1 任务节点 ，2 网关节点，3 结束节点
+	int64   is_cosigned = 9;  // 是否会签  0 不会签  1 会签
+	string  data = 10;  //
+	int64   created_at = 11;  // 创建时间
+	int64   updated_at = 12;  // 更新时间
+	string  created_name = 13;  // 创建人
+	string  updated_name = 14;  // 更新人
+}
+//ProcExecution end---------------------
+//HistProcExecution start-------------------
+// HistProcExecution 分页查询
+message HistProcExecutionListReq{
+	int64  current = 1;  // 页码
+	int64  page_size = 2;  // 页数
+	int64   proc_id = 3;  // 实例ID
+	int64   proc_version = 4;  // 流程版本号
+	string  proc_name = 5;  // 流程名
+	string  node_id = 6;  // 节点ID
+	string  node_name = 7;  // 节点名称
+	string  prev_node_id = 8;  // 上级节点ID
+	int64   node_type = 9;  // 节点类型 0 开始节点，1 任务节点 ，2 网关节点，3 结束节点
+	int64   is_cosigned = 10;  // 是否会签  0 不会签  1 会签
+	string  tenant_id = 11;  // 租户ID
+	string  data = 12;  //
+}
+
+// HistProcExecution 分页查询返回
+message HistProcExecutionListResp{
+	int64  total = 1;  // 总数
+	repeated  HistProcExecutionListData list = 2;  // 内容
+}
+
+// HistProcExecution 列表信息
+message HistProcExecutionListData{
+	int64   id = 1;  // 执行ID
+	int64   proc_id = 2;  // 实例ID
+	int64   proc_version = 3;  // 流程版本号
+	string  proc_name = 4;  // 流程名
+	string  node_id = 5;  // 节点ID
+	string  node_name = 6;  // 节点名称
+	string  prev_node_id = 7;  // 上级节点ID
+	int64   node_type = 8;  // 节点类型 0 开始节点，1 任务节点 ，2 网关节点，3 结束节点
+	int64   is_cosigned = 9;  // 是否会签  0 不会签  1 会签
+	string  data = 10;  //
+	int64   created_at = 11;  // 创建时间
+	int64   updated_at = 12;  // 更新时间
+	string  created_name = 13;  // 创建人
+	string  updated_name = 14;  // 更新人
+}
+
+//HistProcExecution end---------------------
+//ProcTask start-------------------
+
+// 任务通过
+message TaskPassReq{
+	int64   task_id = 1;  // 任务ID
+	string   comment = 2;  // 评论意见
+	string  variables_json = 3;  // 变量(Json)
+	string  tenant_id = 4;  // 租户ID
+	string  data = 5;  //
+	string  created_name = 6;  // 创建人
+	int64  directly_to_who_rejected_me = 7;  //任务通过(pass)时直接返回到上一个驳回我的节点 0不返回  1 返回
+}
+// 任务通过后流程直接返回到上一个驳回我的节点
+message TaskPassDirectlyToWhoRejectedMeReq{
+	int64   task_id = 1;  // 任务ID
+	string   comment = 2;  // 评论意见
+	string  variables_json = 3;  // 变量(Json)
+	string  tenant_id = 4;  // 租户ID
+	string  data = 5;  //
+	string  created_name = 6;  // 创建人
+}
+//任务驳回
+message TaskRejectReq{
+	int64   task_id = 1;  // 任务ID
+	string   comment = 2;  // 评论意见
+	string  variables_json = 3;  // 变量(Json)
+	string  tenant_id = 4;  // 租户ID
+	string  data = 5;  //
+	string  created_name = 6;  // 创建人
+}
+//自由任务驳回
+message TaskFreeRejectToUpstreamNodeReq{
+	int64   task_id = 1;  // 任务ID
+	string   comment = 2;  // 评论意见
+	string  variables_json = 3;  // 变量(Json)
+	string  tenant_id = 4;  // 租户ID
+	string  data = 5;  //
+	string  created_name = 6;  // 创建人
+	string  reject_to_node_id = 7;  // 驳回到哪个节点
+}
+//将任务转交给他人处理
+message TaskTransferReq{
+	int64   task_id = 1;  // 任务ID
+	repeated string   users = 2;  // 用户
+	string  tenant_id = 3;  // 租户ID
+	string  data = 4;  //
+	string  created_name = 5;  // 创建人
+	string  reject_to_node_id = 6;  // 驳回到哪个节点
+}
+// 获取待办任务
+message TaskToDoListReq{
+	int64  current = 1;  // 页码
+	int64  page_size = 2;  // 页数
+	string   user_id = 3;  // 用户ID
+	int64   proce_id = 4;  // 指定流程名称
+	string  tenant_id = 5;  // 租户ID
+	string  data = 6;  //
+	string  created_name = 7;  // 创建人
+	int64  sort_by_asc = 8;  // 驳回到哪个节点
+}
+
+// 获取待办任务返回
+message TaskToDoListResp{
+	int64  total = 1;  // 总数
+	repeated  ProcTaskListData list = 2;  // 内容
+}
+
+// ProcTask 列表信息
+message ProcTaskListData{
+	int64   id = 1;  // 任务ID
+	int64   proc_id = 2;  // 流程ID
+	int64   proc_inst_id = 3;  // 流程实例ID
+	string  business_id = 4;  // 业务ID
+	string  starter = 5;  // 流程发起人用户ID
+	string  node_id = 6;  // 节点ID
+	string  node_name = 7;  // 节点名称
+	string  prev_node_id = 8;  // 上个处理节点ID
+	int64   is_cosigned = 9;  // 任意一人通过即可 1:会签
+	string  batch_code = 10;  // 批次码.节点会被驳回，一个节点可能产生多批task,用此码做分别\"
+	string  user_id = 11;  // 分配用户ID
+	int64   status = 12;  // 任务状态:0:初始 1:通过 2:驳回
+	int64   is_finished = 13;  // 0:任务未完成 1:处理完成
+	string  comment = 14;  // 任务备注
+	int64   proc_inst_create_time = 15;  // 流程实例创建时间
+	int64   finished_time = 16;  // 处理任务时间
+	string  data = 17;  //
+	int64   created_at = 18;  // 创建时间
+	int64   updated_at = 19;  // 更新时间
+	string  created_name = 20;  // 创建人
+	string  updated_name = 21;  // 更新人
+}
+
+// 获取已办任务
+message TaskFinishedListReq{
+	int64  current = 1;  // 页码
+	int64  page_size = 2;  // 页数
+	string   user_id = 3;  // 用户ID
+	string   proce_name = 4;  // 指定流程名称
+	string  tenant_id = 5;  // 租户ID
+	string  data = 6;  //
+	string  created_name = 7;  // 创建人
+	int64  sort_by_asc = 8;  // 驳回到哪个节点
+	int64  ignore_start_by_me = 9;  // 是否忽略由我开启流程,而生成处理人是我自己的任务
+}
+
+// 获取已办任务返回
+message TaskFinishedListResp{
+	int64  total = 1;  // 总数
+	repeated  ProcTaskListData list = 2;  // 内容
+}
+//获取本任务所在节点的所有上游节点
+message TaskUpstreamNodeListReq{
+	int64  taskid = 1;  // 页码
+	string  tenant_id = 2;  // 租户ID
+}
+message TaskUpstreamNodeListResp{
+	int64  total = 1;  // 总数
+	repeated  TaskUpstreamNodeListDate list = 2;  // 内容
+}
+// 获取本任务所在节点的所有上游节点返回
+message TaskUpstreamNodeListDate{
+	int64   id = 1;  // 任务ID
+	int64   proc_id = 2;  // 流程ID
+	int64   proc_inst_id = 3;  // 流程实例ID
+	string  business_id = 4;  // 业务ID
+	string  starter = 5;  // 流程发起人用户ID
+	string  node_id = 6;  // 节点ID
+	string  node_name = 7;  // 节点名称
+	string  prev_node_id = 8;  // 上个处理节点ID
+	int64   is_cosigned = 9;  // 任意一人通过即可 1:会签
+	string  batch_code = 10;  // 批次码.节点会被驳回，一个节点可能产生多批task,用此码做分别\"
+	string  user_id = 11;  // 分配用户ID
+	int64   status = 12;  // 任务状态:0:初始 1:通过 2:驳回
+	int64   is_finished = 13;  // 0:任务未完成 1:处理完成
+	string  comment = 14;  // 任务备注
+	int64   proc_inst_create_time = 15;  // 流程实例创建时间
+	int64   finished_time = 16;  // 处理任务时间
+	string  data = 17;  //
+	int64   created_at = 18;  // 创建时间
+	int64   updated_at = 19;  // 更新时间
+	string  created_name = 20;  // 创建人
+	string  updated_name = 21;  // 更新人
+}
+
+//当前任务可以执行哪些操作
+message TaskWhatCanIDoReq{
+	int64  taskid = 1;  // 页码
+	string  tenant_id = 2;  // 租户ID
+}
+// 当前任务可以执行哪些操作返回
+message TaskWhatCanIDoResp{
+	int64   id = 1;  // 任务ID
+	int64   proc_id = 2;  // 流程ID
+	int64   proc_inst_id = 3;  // 流程实例ID
+	string  business_id = 4;  // 业务ID
+	string  starter = 5;  // 流程发起人用户ID
+	string  node_id = 6;  // 节点ID
+	string  node_name = 7;  // 节点名称
+	string  prev_node_id = 8;  // 上个处理节点ID
+	int64   is_cosigned = 9;  // 任意一人通过即可 1:会签
+	string  batch_code = 10;  // 批次码.节点会被驳回，一个节点可能产生多批task,用此码做分别\"
+	string  user_id = 11;  // 分配用户ID
+	int64   status = 12;  // 任务状态:0:初始 1:通过 2:驳回
+	int64   is_finished = 13;  // 0:任务未完成 1:处理完成
+	string  comment = 14;  // 任务备注
+	int64   proc_inst_create_time = 15;  // 流程实例创建时间
+	int64   finished_time = 16;  // 处理任务时间
+	string  data = 17;  //
+	int64   created_at = 18;  // 创建时间
+	int64   updated_at = 19;  // 更新时间
+	string  created_name = 20;  // 创建人
+	string  updated_name = 21;  // 更新人
+}
+
+//任务信息
+message TaskInfoReq{
+	int64  taskid = 1;  // 页码
+	string  tenant_id = 2;  // 租户ID
+}
+// 任务信息返回
+message TaskInfoResp{
+	int64   id = 1;  // 任务ID
+	int64   proc_id = 2;  // 流程ID
+	int64   proc_inst_id = 3;  // 流程实例ID
+	string  business_id = 4;  // 业务ID
+	string  starter = 5;  // 流程发起人用户ID
+	string  node_id = 6;  // 节点ID
+	string  node_name = 7;  // 节点名称
+	string  prev_node_id = 8;  // 上个处理节点ID
+	int64   is_cosigned = 9;  // 任意一人通过即可 1:会签
+	string  batch_code = 10;  // 批次码.节点会被驳回，一个节点可能产生多批task,用此码做分别\"
+	string  user_id = 11;  // 分配用户ID
+	int64   status = 12;  // 任务状态:0:初始 1:通过 2:驳回
+	int64   is_finished = 13;  // 0:任务未完成 1:处理完成
+	string  comment = 14;  // 任务备注
+	int64   proc_inst_create_time = 15;  // 流程实例创建时间
+	int64   finished_time = 16;  // 处理任务时间
+	string  data = 17;  //
+	int64   created_at = 18;  // 创建时间
+	int64   updated_at = 19;  // 更新时间
+	string  created_name = 20;  // 创建人
+	string  updated_name = 21;  // 更新人
+}
+
+// ProcTask 分页查询
+message ProcTaskListReq{
+	int64  current = 1;  // 页码
+	int64  page_size = 2;  // 页数
+	int64   proc_id = 3;  // 流程ID
+	int64   proc_inst_id = 4;  // 流程实例ID
+	string  business_id = 5;  // 业务ID
+	string  starter = 6;  // 流程发起人用户ID
+	string  node_id = 7;  // 节点ID
+	string  node_name = 8;  // 节点名称
+	string  prev_node_id = 9;  // 上个处理节点ID
+	int64   is_cosigned = 10;  // 任意一人通过即可 1:会签
+	string  batch_code = 11;  // 批次码.节点会被驳回，一个节点可能产生多批task,用此码做分别\"
+	string  user_id = 12;  // 分配用户ID
+	int64   status = 13;  // 任务状态:0:初始 1:通过 2:驳回
+	int64   is_finished = 14;  // 0:任务未完成 1:处理完成
+	string  comment = 15;  // 任务备注
+	int64   proc_inst_create_time = 16;  // 流程实例创建时间
+	int64   finished_time = 17;  // 处理任务时间
+	string  tenant_id = 18;  // 租户ID
+	string  data = 19;  //
+}
+
+
+
+//ProcTask end---------------------
+
+service Workflow {
+
+	//流程定义
+  rpc ProcDefSave(ProcDefSaveReq) returns(CommonResp);
+  rpc ProcDefDelete(ProcDefDeleteReq) returns(CommonResp);
+  rpc ProcDefUpdate(ProcDefUpdateReq) returns(CommonResp);
+  rpc ProcDefFindOne(ProcDefFindOneReq) returns(ProcDefFindOneResp);
+  rpc ProcDefList(ProcDefListReq) returns(ProcDefListResp);
+
+	//流程定义历史
+	rpc HistProcDefList(HistProcDefListReq) returns(HistProcDefListResp);
+
+	// 流程实例
+	rpc ProcInstStart(ProcInstStartReq) returns(CommonResp);
+	rpc ProcInstDelete(ProcInstDeleteReq) returns(CommonResp);
+	rpc ProcInstRevoke(ProcInstRevokeReq) returns(CommonResp);
+	rpc ProcInstUpdate(ProcInstUpdateReq) returns(CommonResp);
+	rpc ProcInstFindOne(ProcInstFindOneReq) returns(ProcInstFindOneResp);
+	rpc ProcInstList(ProcInstListReq) returns(ProcInstListResp);
+
+	// 执行任务
+	rpc ProcExecutionList(ProcExecutionListReq) returns(ProcExecutionListResp);
+  //执行任务历史
+	rpc HistProcExecutionList(HistProcExecutionListReq) returns(HistProcExecutionListResp);
+
+	// 任务通过
+	rpc TaskPass(TaskPassReq) returns(CommonResp);
+	// 任务通过后流程直接返回到上一个驳回我的节点
+	rpc TaskPassDirectlyToWhoRejectedMe(TaskPassDirectlyToWhoRejectedMeReq) returns(CommonResp);
+	//任务驳回
+	rpc TaskReject(TaskRejectReq) returns(CommonResp);
+	//自由任务驳回
+	rpc TaskFreeRejectToUpstreamNode(TaskFreeRejectToUpstreamNodeReq) returns(CommonResp);
+	//将任务转交给他人处理
+	rpc TaskTransfer(TaskTransferReq) returns(CommonResp);
+	// 获取待办任务
+	rpc TaskToDoList(TaskToDoListReq) returns(TaskToDoListResp);
+	// 获取已办任务
+	rpc TaskFinishedList(TaskFinishedListReq) returns(TaskFinishedListResp);
+	// 获取本任务所在节点的所有上游节点
+	rpc TaskUpstreamNodeList(TaskUpstreamNodeListReq) returns(TaskUpstreamNodeListResp);
+	// 当前任务可以执行哪些操作
+	rpc TaskWhatCanIDo(TaskWhatCanIDoReq) returns(TaskWhatCanIDoResp);
+	// 任务信息
+	rpc TaskInfo(TaskInfoReq) returns(TaskInfoResp);
+
+
+
+}

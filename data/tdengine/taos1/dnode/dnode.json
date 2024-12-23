@@ -1,0 +1,12 @@
+{
+	"dnodeId":	1,
+	"dnodeVer":	"2",
+	"clusterId":	"2433162583939341772",
+	"dropped":	0,
+	"dnodes":	[{
+			"id":	1,
+			"fqdn":	"taosnode1",
+			"port":	6030,
+			"isMnode":	1
+		}]
+}

@@ -1,0 +1,22 @@
+syntax = "v1"
+
+import "doc/procdef.api"
+import "doc/procinst.api"
+import "doc/proctask.api"
+
+type (
+	Response {
+		Code int64       `json:"code"` // 状态码
+		Msg  string      `json:"msg"` // 消息
+		Data interface{} `json:"data"` // 数据
+	}
+)
+
+info (
+	title:   "工作流"
+	desc:    "工作流"
+	author:  "gaop"
+	email:   "740775519@qq.com"
+	version: "1.0"
+)
+
